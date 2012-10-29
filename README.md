@@ -2,7 +2,7 @@
 ### Show hidden resources of verycd.com
 by [OOBE](http://oobe.tw)
 
-VeryCD now is a simple extension based on http://gdajie.com project.
+VeryCDNow is a simple extension based on http://gdajie.com project.
 
 ##Installation
 Just load files into Extension Builder or install from download area.
