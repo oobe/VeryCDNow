@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<script>
+// Register for the validate and command events.
+safari.application.addEventListener("command", performCommand, false);
+safari.application.addEventListener("validate", validateCommand, false);
+
+function performCommand(event)
+{
+	console.log("Performing command: ", event.command);
+
+	if (event.command != "open-resource-tab")
+		return;
+
+	// Close others tab except the current one in the target's window.
+    var myTabs = event.target.browserWindow.tabs;
+    var currentTab = event.target.browserWindow.activeTab;
+
+    var theURL = event.target.browserWindow.activeTab.url;
+    var newURL = convertResourceUrlByOriginUrl(theURL);
+
+	console.log('The url:', theURL);
+    
+    var newTab = event.target.browserWindow.openTab();
+    newTab.url = newURL;
+    newTab.activeTab;
+    
+}
+
+function validateCommand(event)
+{
+	if (event.command !== "open-resource-tab")
+		return;
+
+	// Disable the button if not verycd site
+	event.target.disabled = (verycdResourcePage(event.target.browserWindow.activeTab.url) == false);
+}
+
+//---- Functions ---- //
+function convertResourceUrlByOriginUrl(url)
+{
+	// Use RegExp to convert URL
+	var result = url;
+	var regex = "www\.verycd\.com\/topics";
+	result = result.replace(regex, "www.verycd.gdajie.com/topics");
+
+	return result;
+}
+
+function verycdResourcePage(url)
+{
+	var result = false;
+
+	// Check if active tab url under verycd site
+	var regex = "www\.verycd\.com\/topics";
+	if (url.match(regex) != null) {
+		result = true;
+	};
+
+	return result;
+}
+
+</script>
